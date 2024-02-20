@@ -1,4 +1,4 @@
-module github.com/skrollbrad/microservices
+module github.com/skrollbrad/chat-server
 
 go 1.20
 
