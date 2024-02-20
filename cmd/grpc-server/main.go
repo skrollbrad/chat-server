@@ -3,15 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/golang/protobuf/ptypes/empty"
 	"log"
 	"net"
 
-	"github.com/brianvoe/gofakeit"
+	desc "github.com/skrollbrad/microservices/pkg/chat_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	desc " github.com/skrollbrad/microservices/pkg/chat_v1"
 )
 
 const grpcPort = 50051
@@ -20,23 +18,24 @@ type server struct {
 	desc.UnimplementedChatV1Server
 }
 
-// Get ...
-func (s *server) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
-	log.Printf("Note id: %d", req.GetId())
+// Create ...
+func (s *server) Create(ctx context.Context, req *desc.CreateRequest) (*desc.CreateResponse, error) {
+	name := req.Username
+	log.Printf("Names is: %v", name)
 
-	return &desc.GetResponse{
-		Note: &desc.Note{
-			Id: req.GetId(),
-			Info: &desc.NoteInfo{
-				Title:    gofakeit.BeerName(),
-				Content:  gofakeit.IPv4Address(),
-				Author:   gofakeit.Name(),
-				IsPublic: gofakeit.Bool(),
-			},
-			CreatedAt: timestamppb.New(gofakeit.Date()),
-			UpdatedAt: timestamppb.New(gofakeit.Date()),
-		},
-	}, nil
+	return &desc.CreateResponse{Id: 123}, nil
+}
+func (s *server) Delete(ctx context.Context, req *desc.DeleteRequest) (*empty.Empty, error) {
+	id := req.Id
+	log.Printf("This id: %d", id)
+
+	return &empty.Empty{}, nil
+}
+func (s *server) Send(ctx context.Context, req *desc.SendMessageRequest) (*empty.Empty, error) {
+	text := req.Text
+	log.Printf("This id: %v", text)
+
+	return &empty.Empty{}, nil
 }
 
 func main() {
@@ -47,7 +46,7 @@ func main() {
 
 	s := grpc.NewServer()
 	reflection.Register(s)
-	desc.RegisterNoteV1Server(s, &server{})
+	desc.RegisterChatV1Server(s, &server{})
 
 	log.Printf("server listening at %v", lis.Addr())
 

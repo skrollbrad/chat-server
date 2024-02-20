@@ -1,6 +1,11 @@
-module github.com/olezhek28/microservices_course_boilerplate
+module github.com/skrollbrad/microservices
 
 go 1.20
+
+require (
+	google.golang.org/grpc v1.61.1
+	google.golang.org/protobuf v1.32.0
+)
 
 require (
 	github.com/brianvoe/gofakeit v3.18.0+incompatible // indirect
@@ -12,7 +17,5 @@ require (
 	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
-	google.golang.org/grpc v1.61.1 // indirect
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0 // indirect
-	google.golang.org/protobuf v1.32.0 // indirect
 )
