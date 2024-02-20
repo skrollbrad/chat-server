@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	desc "github.com/skrollbrad/microservices/pkg/chat_v1"
+	desc "github.com/skrollbrad/chat-server/pkg/chat_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
